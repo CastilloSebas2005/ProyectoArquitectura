@@ -83,7 +83,7 @@ ponerFigura:
 	li $a2, BLANCO
 	
 	and $t7, $t8, 0x0001
-	jal colorPicker
+	jal obtenerColor
 	#esto se usará más adelante, si $t7 es cero es una X y si no es una O, funciona igual que un booleano:)
 	beq $t7, 0, dibujarX
 	beq $t7, 1, dibujarY
