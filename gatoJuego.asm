@@ -63,6 +63,7 @@ s:
 	
 a:	
 	li $a2, 0
+	jal dibujarPixel
 	li $a2, BLANCO
 	subi $a0, $a0, 42
 	jal dibujarPixel
@@ -85,4 +86,4 @@ ponerFigura:
 	jal colorPicker
 	#esto se usará más adelante, si $t7 es cero es una X y si no es una O, funciona igual que un booleano:)
 	beq $t7, 0, dibujarX
-	beq $t7, 1, dibujarY 
+	beq $t7, 1, dibujarY
