@@ -1,6 +1,6 @@
 .data
 	#guardando colores y memoria que se usarán durante el programa
-	#se usó eqv y no .word o otra porque es más fácil manejar los valores directamente así en vez de estar cargando la dirección de memoria en registros
+	#se usar� eqv y no .word o otra porque es más fácil manejar los valores directamente así en vez de estar cargando la dirección de memoria en registros
 	.eqv	ROJO	0x00FF0000
 	.eqv	AZUL	0x000000FF
 	.eqv	BLANCO	0x00FFFFFF
@@ -35,7 +35,7 @@ leerTeclado:
 	
 	# se guarda la tecla ingresada en $t4
 	lw 	$t4, 0xffff0004
-	beq	$t4, 32, exit	# space
+	beq	$t4, 32, exit	# espacio
 	beq	$t4, 119, w 	# w
 	beq	$t4, 115, s 	#  s
 	beq 	$t4, 97, a  	# a
@@ -84,6 +84,60 @@ ponerFigura:
 	
 	and $t7, $t8, 0x0001
 	jal obtenerColor
-	#esto se usará más adelante, si $t7 es cero es una X y si no es una O, funciona igual que un booleano:)
+	#esto se usar� m�s adelante, si $t7 es cero es una X y si no es una O, funciona igual que un booleano:)
 	beq $t7, 0, dibujarX
 	beq $t7, 1, dibujarY
+
+dibujarTablero:	
+#$t0 = i
+	addi $sp, $sp, -4
+	sw $ra, ($sp)
+	
+	li $a2, BLANCO
+	li $a0, 171
+	li $a1, 0
+	
+dibujarVerticalIzquierda:	
+	bge $t0, $t9, dibujarVerticalCentral
+	jal dibujarPixel
+	addi $t0, $t0, 1
+	addi $a1, $a1, 1
+	j dibujarVerticalIzquierda
+
+dibujarVerticalCentral:	
+	li $t0, 0
+	li $a0, 342
+	li $a1, 0
+		
+dibujarVerticalDerecha:	
+	bge $t0, $t9, dibujarPrimeraLinea
+	jal dibujarPixel
+	addi $t0, $t0, 1
+	addi $a1, $a1, 1	
+	j dibujarVerticalDerecha
+	
+dibujarPrimeraLinea:	
+	li $t0, 0
+	li $a0, 0
+	li $a1, 43
+	li $t9, 128
+	
+dibujarHorizontalSuperior:	
+	bge $t0, $t9, dibujarHorizontalCentral
+	jal drawPixel
+	addi $t0, $t0, 1
+	addi $a0, $a0, 1
+	j dibujarHorizontalSuperior
+	
+dibujarHorizontalCentral:
+	li $t0, 0
+	li $a0, 0
+	li $a1, 86
+	li $t9, 128
+	
+dibujarHorizontalInferior: 
+	bge $t0, $t9, middlePlacementDone #middlePlacementDone ser� un pixel dentro del tablero para elegir la casilla a marcar
+	jal dibujarPixel
+	addi $t0, $t0, 1
+	addi $a0, $a0, 1
+	j dibujarHorizontalInferior
