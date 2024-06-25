@@ -28,18 +28,26 @@ Funcionalidad implementada:
 
     dibujarHorizontalInferior: función que dibuja la línea horizontal inferior del tablero, y llama a la función posicionarSelector.
 
+    posicionarSelector: función que dibuja un pixel en el centro del tablero, el cual se mueve mediante las teclas a,s,d,e para elegir la posición del tablero en la que se quiere poner la figura correspondiente.
+
     dibujarX: función que dibuja pixel a pixel, una X dependiendo de donde se seleccione, usa las funciones dibujarPixel y posicionarSelector
 
     dibujarO: función que dibuja pixel a pixel, un O dependiendo de donde se seleccione, usa las funciones dibujarPixel y posicionarSelector esta fue un poco más compleja, no se hace un círculo perfecto ya que solo se pueden manejar pixeles en diagonal, entonces se intenta representar.
 
+    guardarPosicion: Función que guarda donde se colocan los elementos en el tablero, se guarda el color y la ubicacion de la figura (ROJO = x & AZUL = O).
+
+    comprobarGanador: función que dibuja pixel a pixel una línea amarilla sobre las tres casillas ganadoras, usa las funciones dibujarVertical, dibujarHorizontal, dibujarDiagonalIzquierda y dibujarDiagonalDerecha. 
+
 Funcionalidad no implementada:
-    comprobarGanador: aún no se comprueba.
-    posicionarSelector: será para guiar al usuario al momento de elegir la posición a marcar.
-    juegoTerminado: para cuando alguien gana, se termina el juego
     
-    Imagenes del código:
+    juegoTerminado: para cuando alguien gana, se termina el juego.
+    
+Imagenes del código:
     aún no hay imágenes de la interfáz para mostrar.
 
 Errores conocidos: 
     Se dibuja gran parte del tablero, pero no completamente, y se reciben valores desde el teclado.
+    Se dibujan las figuras de juego y el pixel de posicionarSelector, pero la X no se dibuja completamente.
+    El juego detecta que ya hubo ganadores, pero no finaliza la partida.
+    El juego no reconoce las jugadas diagonales como ganadoras.
     Si no se inicia la herramienta bitmap y la de leer el teclado, el programa no hará nada
