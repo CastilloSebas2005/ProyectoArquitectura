@@ -142,7 +142,7 @@ dibujarHorizontalInferior:
 	j dibujarHorizontalInferior
 	
 #este será un pixel dentro del tablero con la casilla a marcar
-posicionarSelector: #falta correcta implentación
+posicionarSelector: 
 	li $a0, 64
 	li $a1, 64 
 	
@@ -342,9 +342,10 @@ obtenerColor:
 		lw $ra, ($sp)
 		addi $sp, $sp, 4
 		jr $ra 
+		
 #Guarda donde se colocan los elementos en el tablero.
 guardarLugar:
-#Comportamiento del tablero desde s0 hasta s7     
+#Comportamiento del tablero desde estado s0 hasta estado s7     
 #Se guarda el color y la ubicacion de la figura (ROJO = x    AZUL = O)
 
 	subi $sp, $sp, 4
