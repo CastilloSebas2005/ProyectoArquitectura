@@ -8,7 +8,7 @@
 	.eqv	ALTURA 128
 	.eqv 	ANCHO 128
 	.eqv	MEM	0x10008000
-	
+	dibujando: .asciiz "dibujando der"
 .text
 #$t0 va a ser el contador en las diferentes etapas de los ciclos
 #$a0 va a ser el ancho, $a1 va a ser la altura, igual que en un plano cartesiano, #a2 va a guardar los colores, $t8 contador de X o de O
@@ -26,9 +26,7 @@ main:
 	jal dibujarTablero
 	
 ciclo:
-	#li $a2, 7	
-		#loop draw
-	jal dibujarPixel #loop draw
+	jal dibujarPixel
 leerTeclado:	
 	# esperando tecla
 	lw $t0, 0xffff0000  
@@ -89,21 +87,7 @@ ponerFigura:
 	beq $t7, 0, dibujarX
 	beq $t7, 1, dibujarO
 	
-obtenerColor:
-	subi $sp, $sp, 4
-	sw $ra, ($sp)
-		beq $t7, 0, rojo
-		beq $t7, 1, azul
-	rojo:
-		li $a2, ROJO
-		lw $ra, ($sp)
-		addi $sp, $sp, 4
-		jr $ra	
-	azul:
-		li $a2, AZUL
-		lw $ra, ($sp)
-		addi $sp, $sp, 4
-		jr $ra 
+
 #t0 va a ser el Ã­ndice al igual que un contador en un ciclo y dibujar tablero es el mÃ©todo por el cual se van a crear las lineas horizontales y verticales que se verÃ¡n en pantalla 
 dibujarTablero:	
 	subi $sp, $sp, 4
@@ -199,7 +183,7 @@ dibujarX:
 	addi $a1,$a1, -10
 	li $t0, 0
 dibujarBarraIzquierda:
- 	bge $t0, 20, dibujarBarraDerecha
+ 	bge $t0, 20, reinicioDeValores
 	jal dibujarPixel
 	addi $t0, $t0, 1
 	addi $a0, $a0, 1
@@ -210,7 +194,7 @@ reinicioDeValores:
  	addi $a1,$a1, -20
  	li $t0, 0
  	
- dibujarBarraDerecha:
+dibujarBarraDerecha:
  	bge $t0, 20, XTerminada
 	jal dibujarPixel
 	addi $t0, $t0, 1
@@ -342,7 +326,22 @@ OTerminado:
 	li $a2, BLANCO
 	addi $t8, $t8, 1
 	j ciclo
-
+	
+obtenerColor:
+	subi $sp, $sp, 4
+	sw $ra, ($sp)
+		beq $t7, 0, rojo
+		beq $t7, 1, azul
+	rojo:
+		li $a2, ROJO
+		lw $ra, ($sp)
+		addi $sp, $sp, 4
+		jr $ra	
+	azul:
+		li $a2, AZUL
+		lw $ra, ($sp)
+		addi $sp, $sp, 4
+		jr $ra 
 #Guarda donde se colocan los elementos en el tablero.
 guardarLugar:
 #Comportamiento del tablero desde s0 hasta s7     
@@ -505,8 +504,8 @@ guardarLugar:
 				jr $ra
 				
 						
-#Se verifica cada cuadrícula del tablero para comprobar si hay ganador
-#Si hay ganador, se dibuja una línea sobre las tres casillas ganadoras								
+#Se verifica cada cuadrï¿½cula del tablero para comprobar si hay ganador
+#Si hay ganador, se dibuja una lï¿½nea sobre las tres casillas ganadoras								
 comprobarGanador:
 	addi $sp, $sp, -4
 	sw $ra, ($sp)
@@ -579,7 +578,7 @@ comprobarGanador:
 			beq $s4, $t6, dibujarDiagonalIzquierda
 			j backj
 			
-#Se dibuja la línea ganadora en vertical							
+#Se dibuja la lï¿½nea ganadora en vertical							
  dibujarVertical:
  	
  	beq $t0, 128, backj
@@ -588,7 +587,7 @@ comprobarGanador:
  	addi $a1, $a1, 1
  	j dibujarVertical
  	
-#Se dibuja la línea ganadora en horizontal	
+#Se dibuja la lï¿½nea ganadora en horizontal	
  dibujarHorizontal:
  	beq $t0, 128, backj
  	jal dibujarPixel
@@ -596,7 +595,7 @@ comprobarGanador:
  	addi $a0, $a0, 1
  	j dibujarHorizontal
  	
- #Se dibuja la línea diagonal izquierda ganadora
+ #Se dibuja la lï¿½nea diagonal izquierda ganadora
  dibujarDiagonalIzquierda: 
  	beq $t0, 512, backj
  	jal dibujarPixel
@@ -605,7 +604,7 @@ comprobarGanador:
  	addi $a1, $a1, 1
  	j dibujarDiagonalIzquierda
  	
- #Se dibuja la línea diagonal derecha ganadora	
+ #Se dibuja la lï¿½nea diagonal derecha ganadora	
  dibujarDiagonalDerecha: 
  	beq $t0, 512, backj
  	jal dibujarPixel
@@ -614,7 +613,7 @@ comprobarGanador:
  	addi $a1, $a1, 1
  	j dibujarDiagonalDerecha
  	
-#Arregla el puntero de la pila y salta hacia atrás
+#Arregla el puntero de la pila y salta hacia atrï¿½s
 backj:
 	lw $ra, ($sp)
 	addi $sp, $sp, 4
