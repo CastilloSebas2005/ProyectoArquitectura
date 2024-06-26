@@ -347,7 +347,7 @@ guardarLugar:
 #Comportamiento del tablero desde s0 hasta s7     
 #Se guarda el color y la ubicacion de la figura (ROJO = x    AZUL = O)
 
-	addi $sp, $sp, -4
+	subi $sp, $sp, 4
 	sw $ra, ($sp)
 	
 		#
@@ -507,10 +507,11 @@ guardarLugar:
 #Se verifica cada cuadr�cula del tablero para comprobar si hay ganador
 #Si hay ganador, se dibuja una l�nea sobre las tres casillas ganadoras								
 comprobarGanador:
-	addi $sp, $sp, -4
+	subi $sp, $sp, 4
 	sw $ra, ($sp)
 	li $t0, 0
-	li $a2, AMARILLO #la linea que se dibuja sobre las sillas es amarilla
+	#la linea que se dibuja sobre las sillas es amarilla
+	li $a2, AMARILLO 
 	
 	vertical1:
 		beq $s0, $s3, vertical1con2
@@ -581,7 +582,7 @@ comprobarGanador:
 #Se dibuja la l�nea ganadora en vertical							
  dibujarVertical:
  	
- 	beq $t0, 128, backj
+ 	beq $t0, 128, exit
  	jal dibujarPixel
  	addi $t0, $t0, 1
  	addi $a1, $a1, 1
@@ -589,7 +590,7 @@ comprobarGanador:
  	
 #Se dibuja la l�nea ganadora en horizontal	
  dibujarHorizontal:
- 	beq $t0, 128, backj
+ 	beq $t0, 128, exit
  	jal dibujarPixel
  	addi $t0, $t0, 1
  	addi $a0, $a0, 1
@@ -597,7 +598,7 @@ comprobarGanador:
  	
  #Se dibuja la l�nea diagonal izquierda ganadora
  dibujarDiagonalIzquierda: 
- 	beq $t0, 512, backj
+ 	beq $t0, 512, exit
  	jal dibujarPixel
  	addi $t0, $t0, 1
  	addi $a0, $a0, 1
@@ -606,7 +607,7 @@ comprobarGanador:
  	
  #Se dibuja la l�nea diagonal derecha ganadora	
  dibujarDiagonalDerecha: 
- 	beq $t0, 512, backj
+ 	beq $t0, 512, exit
  	jal dibujarPixel
  	addi $t0, $t0, 1
  	addi $a0, $a0, -1
