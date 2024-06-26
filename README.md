@@ -51,3 +51,4 @@ Errores conocidos:
     El juego detecta que ya hubo ganadores, pero no finaliza la partida.
     El juego no reconoce las jugadas diagonales como ganadoras.
     Si no se inicia la herramienta bitmap y la de leer el teclado, el programa no hará nada
+    Se puede sobreescribir en el tablero, es decir, se obtiene un ganador pero la partida no termina, por lo que se puede seguir colocando figuras en casillas ya ocupadas. 
