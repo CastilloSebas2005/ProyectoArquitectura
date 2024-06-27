@@ -58,6 +58,7 @@ Funcionalidad implementada:
 Funcionalidad no implementada:
     ReiniciarTablero para volver a jugar
     Controlar que no se sobreescriba en el espacio ya seleccionado
+    estas dos no se implementaron porque no afectan al funcionamiento del programa, no son necesarias, ya que no producen un error como tal. Con lo que tiene el programa cumple con los requisitos mínimos requeridos.
 Imagenes del código:
     aún no hay imágenes de la interfáz para mostrar.
 
