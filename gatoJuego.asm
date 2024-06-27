@@ -22,6 +22,9 @@ main:
 	li $s7, 17
 	li $t6, 106
 	li $t0, 0
+	#acá se va a comprobar el empate
+	li $k0, 0
+	li $k1, 9
 	li $t9, 512
 	jal dibujarTablero
 	
@@ -80,7 +83,7 @@ ponerFigura:
 	li $a2, 0
 	jal dibujarPixel
 	li $a2, BLANCO
-	
+	addi $k0, $k0, 1
 	and $t7, $t8, 0x0001
 	jal obtenerColor
 	#esto se va a usar en el futuro, si $t7 es cero es una X y si no es una O, funciona igual que un booleano:)
@@ -205,7 +208,7 @@ dibujarBarraDerecha:
  XTerminada:	
  #luego de dibujar se verifica el ganador como se indicaba en el diagrama de flujo
  	jal comprobarGanador
- 	
+ 	jal comprobarEmpate
  	li $a0, 64
 	li $a1, 64
 	li $a2, BLANCO
@@ -579,7 +582,9 @@ comprobarGanador:
 			li $a1, 0
 			beq $s4, $t6, dibujarDiagonalIzquierda
 			j backj
-			
+comprobarEmpate:
+	beq $k0, $k1 exit
+	jr $ra
 #Se dibuja la l�nea ganadora en vertical							
  dibujarVertical:
  	

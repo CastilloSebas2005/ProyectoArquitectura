@@ -53,7 +53,7 @@ Funcionalidad implementada:
     guardarPosicion: Función que guarda donde se colocan los elementos en el tablero, se guarda el color y la ubicacion de la figura (ROJO = x & AZUL = O).
 
     comprobarGanador: función que dibuja pixel a pixel una línea amarilla sobre las tres casillas ganadoras, usa las funciones dibujarVertical, dibujarHorizontal, dibujarDiagonalIzquierda y dibujarDiagonalDerecha. 
-
+    comprobarEmpate: simplemente comprueba que no se jueguen más de 9 veces.
     dibujarPixel: función encargada de dibujar un pixel, esta función es la más importante.
 Funcionalidad no implementada:
     ReiniciarTablero para volver a jugar
