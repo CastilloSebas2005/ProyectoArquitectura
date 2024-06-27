@@ -5,6 +5,22 @@ Sebastián Orozco Castillo C35719
 
 Melanny Hernández Rivera B83808
 
+Instrucciones para compilar:
+    1. instalar mars https://courses.missouristate.edu/KenVollmar/MARS/ vaya donde dice download y siga las instrucciones.
+    2. luego de instalar mars, irse arriba a la izquierda al apartado de file, seleccionar open y buscar el archivo juegoGato.asm de este repositorio y abrirlo con mars.
+    3. buscar arriba en mars el apartado de "tools" abrir bitmap display y configurar con los siguientes parámetros: 
+    Unit Width in Pixels: 4
+    Unit Height in Pixels: 4
+    Display Width in Pixels: 512
+    Display Height in Pixels: 512
+    Base address for display: 0x10008000($gp) que es el registro "pila" las funciones de este programa dependen de este registro
+    y luego de esto darle a la opción Connect to MIPS
+    4. buscar en tools Keyboard and Display MMIO Simulator y darle a la opción connect to MIPS, para que pueda recibir las teclas wsda y enter, que son las necesarias para moverse e insertar ficha, con wsda se mueve y con enter selecciona el lugar donde va a dibujar.
+    5. arriba buscar el apartado de run y darle en Assemble esto es para asegurarse que el programa compila. 
+    6. en el mismo lugar donde está Assemble pulsar el botón de Go y esto debería mostrar en BitMap Display el tablero de Gato y luego de esto apretar en el espacio en blanco de Keyboard and Display MMIO Simulator donde dice KEYBOARD:Characters typed here...
+    y con esto ya podría jugar correctamente el gato.
+    nota: importante, si quiere volver a jugar debe de darle en reset en ambas herramientas de mars y volver a compilar y darle en go de nuevo.
+    IMPORTANTE: si desea salir del programa simplemente pulse la barra espaciadora.
 
 Funcionalidad implementada:
     ciclo: función para iniciar el juego, esta función "es la principal" para recibir el teclado y dibujar demás cosas del juego.
@@ -20,7 +36,7 @@ Funcionalidad implementada:
 
     dibujarVerticalDerecha: dibuja una línea vertical a la derecha de la pantalla (última línea vertical del tablero), y llama a la función dibujarPrimeraLinea.
 
-    #dibujarPrimeraLinea: FALTA.
+    dibujarPrimeraLinea: reinicia los valores.
 
     dibujarHorizontalSuperior: función que dibuja la línea horizontal de arriba del tablero, y llama a la función dibujarHorizontalCentral.
 
@@ -38,17 +54,13 @@ Funcionalidad implementada:
 
     comprobarGanador: función que dibuja pixel a pixel una línea amarilla sobre las tres casillas ganadoras, usa las funciones dibujarVertical, dibujarHorizontal, dibujarDiagonalIzquierda y dibujarDiagonalDerecha. 
 
+    dibujarPixel: función encargada de dibujar un pixel, esta función es la más importante.
 Funcionalidad no implementada:
-    
-    juegoTerminado: para cuando alguien gana, se termina el juego.
-    
+    ReiniciarTablero para volver a jugar
+    Controlar que no se sobreescriba en el espacio ya seleccionado
 Imagenes del código:
     aún no hay imágenes de la interfáz para mostrar.
 
 Errores conocidos: 
-    Se dibuja gran parte del tablero, pero no completamente, y se reciben valores desde el teclado.
-    Se dibujan las figuras de juego y el pixel de posicionarSelector, pero la X no se dibuja completamente.
-    El juego detecta que ya hubo ganadores, pero no finaliza la partida.
-    El juego no reconoce las jugadas diagonales como ganadoras.
-    Si no se inicia la herramienta bitmap y la de leer el teclado, el programa no hará nada
-    Se puede sobreescribir en el tablero, es decir, se obtiene un ganador pero la partida no termina, por lo que se puede seguir colocando figuras en casillas ya ocupadas. 
+    Si no se inicia la herramienta bitmap y la de leer el teclado, el programa no hará nada(no es un error como tal, simplemente el programa está hecho solo para que funcione con bitmap).
+    Se puede sobreescribir en el tablero, es decir, se puede escribir una X encima de una O, sin embargo no afecta al funcionamiento.

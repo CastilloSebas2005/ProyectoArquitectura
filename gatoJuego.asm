@@ -179,8 +179,8 @@ dibujarPixel:
 dibujarX:
 	#lugar donde va a ser dibujada la X
 	jal guardarLugar
-	addi $a0, $a0, -10
-	addi $a1,$a1, -10
+	subi $a0, $a0, 10
+	subi $a1,$a1, 10
 	li $t0, 0
 dibujarBarraIzquierda:
  	bge $t0, 20, reinicioDeValores
@@ -191,7 +191,7 @@ dibujarBarraIzquierda:
 	j dibujarBarraIzquierda
 	
 reinicioDeValores: 	
- 	addi $a1,$a1, -20
+ 	subi $a1,$a1, 20
  	li $t0, 0
  	
 dibujarBarraDerecha:
