@@ -8,7 +8,6 @@
 	.eqv	ALTURA 128
 	.eqv 	ANCHO 128
 	.eqv	MEM	0x10008000
-	dibujando: .asciiz "dibujando der"
 .text
 #$t0 va a ser el contador en las diferentes etapas de los ciclos
 #$a0 va a ser el ancho, $a1 va a ser la altura, igual que en un plano cartesiano, #a2 va a guardar los colores, $t8 contador de X o de O
